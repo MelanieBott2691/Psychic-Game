@@ -1,7 +1,7 @@
 // JAVASCRIPT
 
-var won = 0;
-var lost = 0;
+var wins = 0;
+var losses = 0;
 var attempts = 10;
 var usedArray = [];
 var ranLetter = ranLetter;
@@ -25,7 +25,7 @@ document.onkeyup = function (event) {
     }
 
     jsGuess();
-    if (playerGuess !=== ranLetter) {
+    if (playerGuess === ranLetter) {
         attempts--;
     }
 
@@ -42,8 +42,8 @@ document.onkeyup = function (event) {
         document.getElementById("playerGuess").innerHTML = usedArray;
         console.log(usedArray);
     }
-    document.getElementById("won").innerHTML = won;
-    document.getElementById("lost").innerHTML = lost;
+    document.getElementById("wins").innerHTML = won;
+    document.getElementById("losses").innerHTML = lost;
     document.getElementById("attempts").innerHTML = attempts;
 
 }
