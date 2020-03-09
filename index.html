@@ -9,7 +9,6 @@
 
     <link href="/assets/css/reset.css">
     <link href="/assets/css/style.css">
-    <link src="/assets/javascript/game.js">
    
 
 </head>
@@ -25,6 +24,55 @@
             <p class="list-group-item" id="letter">Your Guesses so far:</p>
     </div>
 
+    <script>
+        var computerChoices = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+        var wins = 0;
+        var losses = 0;
+        var guessesLeft = 10;
+        var letterUser = [];
+        var eachLetters = null;
+
+
+        var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
+        function countGuessesLeft() {
+            document.querySelector("#guessesLeft").innerHTML = "Guesses Left:" + guessesLeft;
+        }
+
+        function farUserGuesses () {
+            document.querySelector("#letter").innerHTML = "Your Guesses so far:" + letterUser.join("");
+        }
+
+        countGuessesLeft();
+
+        var restart = function(){
+            guessesLeft=10;
+            letterUser = [];
+            var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+        }
+
+        document.onkeyup = function (event) {
+            guessesLeft--;
+
+            var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+
+            letterUser.push(userGuess);
+            countGuessesLeft();
+            farUserGuesses();
+
+            if (userGuess === computerGuess) {
+                won++;
+                document.querySelector("#wins").innerHTML = "Wins:" + wins;
+                restart();
+            }
+            else if (guessesLeft === 0) {
+                losses++;
+                document.querySelector("#losses").innerHTML = "Losses:" + losses;
+            }
+
+        }
+
+    </script>
            
 
 
@@ -38,5 +86,6 @@
 <!-- //when the player loses, increase the Losses counter and restart the game without a page refresh (just like when the user wins) -->
 
 </body>
+<script type="javascript" src="assets/javascript/game.js"></script>
 </html>
 
