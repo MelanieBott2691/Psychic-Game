@@ -1,49 +1,48 @@
 // JAVASCRIPT
 
+var computerChoices = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
 var wins = 0;
 var losses = 0;
-var attempts = 10;
-var usedArray = [];
-var ranLetter = ranLetter;
-var letters = "abcdefghijklmnopqrstuvwxyz";
+var guessesLeft = 9;
+var letterUser = [];
+var eachLetters = null;
 
-ranLetter = letters[Math.floor(Math.random() * letters.length)];
-    console.log(ranLetter);
 
-function jsGuess() {
-    ranLetter = letters[Math.floor(Math.random() * letters.length)];
-    console.log(ranLetter);
+var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
+function countGuessesLeft() {
+    document.querySelector("#guessesLeft").innerHTML = "Guesses Left:" + guessesLeft;
+}
+
+function farUserGuesses () {
+    document.querySelector("#letter").innerHTML = "Your Guesses so far:" + letterUser.join("");
+}
+
+countGuessesLeft();
+
+var restart = function(){
+    guessesLeft=9;
+    letterUser = [];
+    var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
 }
 
 document.onkeyup = function (event) {
-    var playerGuess = event.key;
+    guessesLeft--;
 
-    if (playerGuess === ranLetter) {
+    var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+
+    letterUser.push(userGuess);
+    countGuessesLeft();
+    farUserGuesses();
+
+    if (userGuess === computerGuess) {
         won++;
-        attempts = 10;
-        usedArray = [];
+        document.querySelector("#wins").innerHTML = "Wins:" + wins;
+        restart();
     }
-
-    jsGuess();
-    if (playerGuess === ranLetter) {
-        attempts--;
+    else if (guessesLeft === 0) {
+        losses++;
+        document.querySelector("#losses").innerHTML = "Losses:" + losses;
     }
-
-    if (attempts == 0) {
-        lost++;
-        usedArray = [];
-        attempts = 10;
-    }
-
-    if (usedArray.indexOf(playerGuess) >=0){
-
-    } else {
-        usedArray.push(playerGuess);
-        document.getElementById("playerGuess").innerHTML = usedArray;
-        console.log(usedArray);
-    }
-    document.getElementById("wins").innerHTML = won;
-    document.getElementById("losses").innerHTML = lost;
-    document.getElementById("attempts").innerHTML = attempts;
 
 }
